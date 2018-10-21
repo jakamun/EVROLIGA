@@ -3,7 +3,7 @@
 
 Za zadnjih nekaj sezon bom analiziral evroligaške klube.
 Podatke bom pobral z uradne spletne strani  
-[Euroleague](http://www.euroleague.net/).
+[Evrolige](http://www.euroleague.net/).
 
 Za vsak klub bom pogledal:
   - Na katerem mestu je končal sezono,

@@ -1,5 +1,4 @@
 # EVROLIGA
-==============
 
 Za zadnjih nekaj sezon bom analiziral evroligaške klube.
 Podatke bom pobral z uradne spletne strani  

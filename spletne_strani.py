@@ -29,7 +29,7 @@ def shrani_spletno_stran(url, ime_datoteke, vsili_prenos=False):
 # zanka s katero sem pobral podatke po posameznih sezonah za vsak parametr posebej
 statisticni_podatki = [
     'Score', 'TotalRebounds', 'Assistances', 'Steals',
-    'BlockFavour', 'Turnover', 'FoulsCommited'
+    'BlocksFavour', 'Turnovers', 'FoulsCommited'
     ]
 
 for tekma in ['HomeGames', 'AwayGames']:
@@ -52,3 +52,7 @@ for tekma in ['HomeGames', 'AwayGames']:
             '=AccumulatedReverse&misc={}'
         ).format(sezona, tekma)
         shrani_spletno_stran(url, 'spletne-strani\{}\Prejete-tocke-Sezona-{}.html'.format(tekma, sezona))
+
+
+# sedaj hocem se po posammeznih sezonah vzeti kateri igralci so igrali za kateri klub
+

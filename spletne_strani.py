@@ -1,6 +1,7 @@
 import os
 import sys
 import requests
+import zajem_statistike as statistika
 
 
 def pripravi_imenik(ime_datoteke):
@@ -13,12 +14,14 @@ def pripravi_imenik(ime_datoteke):
 def shrani_spletno_stran(url, ime_datoteke, vsili_prenos=False):
     '''Vsebino strani na danem naslovu shrani v datoteko z danim imenom.'''
     try:
+        print('Shranjujem {} ...'.format(url), end='')
+        sys.stdout.flush()
         if os.path.isfile(ime_datoteke) and not vsili_prenos:
             print('shranjeno že od prej!')
             return
         r = requests.get(url)
     except requests.exceptions.ConnectionError:
-        print('Stran ne obstaja!')
+        print('stran ne obstaja!')
     else:
         pripravi_imenik(ime_datoteke)
         with open(ime_datoteke, 'w', encoding='utf-8') as datoteka:
@@ -26,7 +29,8 @@ def shrani_spletno_stran(url, ime_datoteke, vsili_prenos=False):
             print('shranjeno!')
 
 
-# zanka s katero sem pobral podatke po posameznih sezonah za vsak parametr posebej
+# zanka s katero sem pobral podatke
+# po posameznih sezonah za vsak parametr posebej
 statisticni_podatki = [
     'Score', 'TotalRebounds', 'Assistances', 'Steals',
     'BlocksFavour', 'Turnovers', 'FoulsCommited'
@@ -40,7 +44,14 @@ for tekma in ['HomeGames', 'AwayGames']:
                 '&entity=Clubs&seasonmode=Single&seasoncode=E{}&cat={}&'
                 'agg=Accumulated&misc={}'
                 ).format(sezona, podatek, tekma)
-            shrani_spletno_stran(url, 'spletne-strani\{}\{}-Sezona-{}.html'.format(tekma, podatek, sezona))
+            shrani_spletno_stran(
+                url,
+                'spletne-strani\\{}\\{}-Sezona-{}.html'.format(
+                    tekma,
+                    podatek,
+                    sezona
+                    )
+                )
 
 
 # tu se za prejete tocke po letih
@@ -51,8 +62,40 @@ for tekma in ['HomeGames', 'AwayGames']:
             '=Clubs&seasonmode=Single&seasoncode=E{}&cat=Score&agg'
             '=AccumulatedReverse&misc={}'
         ).format(sezona, tekma)
-        shrani_spletno_stran(url, 'spletne-strani\{}\Prejete-tocke-Sezona-{}.html'.format(tekma, sezona))
+        shrani_spletno_stran(
+            url,
+            'spletne-strani\\{}\\Prejete-tocke-Sezona-{}.html'.format(
+                tekma,
+                sezona
+                )
+            )
 
 
-# sedaj hocem se po posammeznih sezonah vzeti kateri igralci so igrali za kateri klub
+# najprej poberem kratice in leta
+# potem pa s pomocjo kratic shranim spletne strani
+def poberi_kratice(mapa, stat):
+    '''Vrne seznam naborov v katerem je kratica kluba in leto'''
+    podatki = statistika.zdruzi_sezone(mapa, stat)
+    seznam = []
+    for slovar in podatki:
+        nabor = (slovar['Kratica'], slovar['Sezona'])
+        seznam.append(nabor)
+    return seznam
 
+
+kratice = poberi_kratice('spletne-strani\\AwayGames', 'Assistances')
+
+for nabor in kratice:
+    kratica = nabor[0]
+    leto = nabor[1]
+    url = (
+        'http://www.euroleague.net/competition/teams/'
+        'showteam?clubcode={}&seasoncode=E{}'
+    ).format(kratica, leto)
+    shrani_spletno_stran(
+        url,
+        'spletne-strani\\ekipe\\{}-{}.html'.format(
+            kratica,
+            leto
+            )
+    )

@@ -1,12 +1,33 @@
-import zajemi_podatke as zajem
+import zajem_statistike as statistika
 import csv
 import json
+import os
 
 
-url_evrolige = re.compile(r'http://www.euroleague.net/main/statistics\?mode='
-                          r'Leaders&entity=Clubs&seasonmode=Single'
-                          r'&seasoncode=E2000&phasetypecode=PO%20%20%20%20%20'
-                          r'%20%20%20&cat=Score&agg=Accumulated')
+def pripravi_imenik(ime_datoteke):
+    '''Če še ne obstaja, pripravi prazen imenik za dano datoteko.'''
+    imenik = os.path.dirname(ime_datoteke)
+    if imenik:
+        os.makedirs(imenik, exist_ok=True)
 
 
-podatki = zajem.statistika_sezone('podatki\evro.html')
+def zapisi_csv(data, ime_datoteke):
+    kljuci = data[0].keys()
+    pripravi_imenik(ime_datoteke)
+    with open(ime_datoteke, 'w', encoding='utf-8', newline='') as datoteka:
+        writer = csv.DictWriter(datoteka, fieldnames=kljuci)
+        writer.writeheader()
+        for slovar in data:
+            writer.writerow(slovar)
+
+statisticni_podatki = [
+    'Score', 'TotalRebounds', 'Assistances', 'Steals',
+    'BlocksFavour', 'Turnovers', 'FoulsCommited', 'Prejete-tocke'
+    ]
+
+for tekma in ['HomeGames', 'AwayGames']:
+    mapa = 'spletne-strani\\{}'.format(tekma)
+    for podatek in statisticni_podatki:
+        zapisi = 'podatki\\{}\\{}.csv'.format(tekma, podatek)
+        data = statistika.zdruzi_sezone(mapa, podatek)
+        zapisi_csv(data, zapisi)

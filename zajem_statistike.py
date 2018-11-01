@@ -1,10 +1,9 @@
 import os
 import re
-import csv
-import json
 
 
 def odpri_datoteko(frontpage):
+    '''Vrne vsebino datoteke kot niz'''
     with open(frontpage, encoding='utf-8') as datoteka:
         return datoteka.read()
 

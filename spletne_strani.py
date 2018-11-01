@@ -54,7 +54,7 @@ for tekma in ['HomeGames', 'AwayGames']:
                 )
 
 
-# tu se za prejete tocke po letih
+# tu se za prejete tocke po sezonah
 for tekma in ['HomeGames', 'AwayGames']:
     for sezona in range(2000, 2018):
         url = (
@@ -71,9 +71,9 @@ for tekma in ['HomeGames', 'AwayGames']:
             )
 
 
-# najprej poberem kratice in leta
-# potem pa s pomocjo kratic shranim spletne strani
-def poberi_kratice(mapa, stat):
+# najprej poberem kratice in leta in jih vrnem v seznamu naborov
+# potem pa s pomocjo tega seznama shranim spletne strani
+def kratice_in_leta(mapa, stat):
     '''Vrne seznam naborov v katerem je kratica kluba in leto'''
     podatki = statistika.zdruzi_sezone(mapa, stat)
     seznam = []
@@ -83,7 +83,7 @@ def poberi_kratice(mapa, stat):
     return seznam
 
 
-kratice = poberi_kratice('spletne-strani\\AwayGames', 'Assistances')
+kratice = kratice_in_leta('spletne-strani\\AwayGames', 'Assistances')
 
 for nabor in kratice:
     kratica = nabor[0]

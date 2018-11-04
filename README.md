@@ -18,7 +18,7 @@ Podatke bom pobral z uradne spletne strani
   - Kaj je bolj pomembno za uspešno sezono dober napad ali dobra obramba?
   - Ali je bolje odigrajo nekoliko slabše redni del sezone in prihranijo nekaj moči za končnico ali, da igrajo redni del s polno močjo in po zaslugi visoke uvrstitve v rednem delu dobijo lažje nasprotnike v končnici?
 
-# Opis tabel
+## Opis tabel
 Vse datoteke vsebujejo kratico kluba.
 
 ### Statistika-ekip:

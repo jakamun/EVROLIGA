@@ -4,7 +4,7 @@ Za zadnjih nekaj sezon bom analiziral evroligaške klube.
 Podatke bom pobral z uradne spletne strani  
 [Evrolige](http://www.euroleague.net/).
 
-### Za vsak klub bom pogledal:
+#### Za vsak klub bom pogledal:
   - Na katerem mestu je končal posamezno sezono,
   - kateri trener jih je vodil, 
   - kateri igralci so igrali za ta klub, 
@@ -12,7 +12,7 @@ Podatke bom pobral z uradne spletne strani
   - kako so igrali na gostujočih in domačih tekmah.
  
  
- ### Hipoteze:
+ #### Hipoteze:
   - Kateri igralci in trenerji so bili v klubih, ki so bili prvaki?
   - Kateri klubi so najuspesnejši v tem tekmovanju?
   - Kaj je bolj pomembno za uspešno sezono dober napad ali dobra obramba?
@@ -21,7 +21,7 @@ Podatke bom pobral z uradne spletne strani
 ## Opis tabel
 Vse datoteke vsebujejo kratico kluba.
 
-### Statistika-ekip:
+#### Statistika-ekip:
 *V tej csv datoteki so shranjene vse vrste statističnih podatkov po sezonah za vsak klub posebej.*
 - 1.stolpec: Vrsta statisticega podatka (podaje, skoki, podaje, itd.)
 - 2.stolpec: Sezona
@@ -33,7 +33,7 @@ Vse datoteke vsebujejo kratico kluba.
 - 8.stolpec: Povprecje statisticnega podatka
 - 9.stolpec: Koliksna je vrednost podatka na 40 minut
 
-### Tekme:
+#### Tekme:
 *Tu so rezultati vseh tekem od zacetka tekmovanja do lanske sezone.*
 - 1.stolpec: Kratica kluba
 - 2.stolpec: Faza tekmovanja (redni del, koncnica, itd.)
@@ -43,7 +43,7 @@ Vse datoteke vsebujejo kratico kluba.
 - 6.stolpec: Nasprotnik
 - 7.stolpec: Rezultat
 
-### Igralci:
+#### Igralci:
 *Kateri igralci so igrali za kateri klub po sezonah*
 - 1.stolpec: Kratica kluba
 - 2.stolpec: Sezona
@@ -53,7 +53,7 @@ Vse datoteke vsebujejo kratico kluba.
 - 6.stolpec: Datum rojstva
 - 7.stolpec: Visina v metrih
 
-### Trenerji:
+#### Trenerji:
 *Kateri igralci so igrali za kateri klub po sezonah*
 - 1.stolpec: Kratica kluba
 - 2.stolpec: Sezona

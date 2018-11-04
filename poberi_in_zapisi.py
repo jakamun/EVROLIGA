@@ -1,6 +1,6 @@
 import zajem_statistike as statistika
+import zajem_ekipe as ekipa
 import csv
-import json
 import os
 
 
@@ -21,28 +21,28 @@ def zapisi_csv(data, ime_datoteke):
             writer.writerow(slovar)
 
 
-def zapisi_json(podatki, ime_datoteke):
-    '''Zapise podatke v json datoteko'''
-    pripravi_imenik(ime_datoteke)
-    with open(ime_datoteke, 'w', encoding='utf-8') as datoteka:
-        json.dump(podatki, datoteka, indent=4, ensure_ascii=False)
-
-
-statisticni_podatki = [
-    'Score', 'TotalRebounds', 'Assistances', 'Steals',
-    'BlocksFavour', 'Turnovers', 'FoulsCommited', 'Prejete-tocke'
-    ]
-
-zdruzeno = {}
+# zapisem csv in naredim json kjer so vsi podatki skupaj
+seznam_statistike = []
 
 for tekma in ['HomeGames', 'AwayGames']:
     mapa = 'spletne-strani\\{}'.format(tekma)
-    slovar = {}
-    for podatek in statisticni_podatki:
-        zapisi = 'podatki\\statistika\\{}\\{}.csv'.format(tekma, podatek)
-        data = statistika.zdruzi_sezone(mapa, podatek)
-        slovar[podatek] = data
-        zapisi_csv(data, zapisi)
-    zdruzeno[tekma] = slovar
+    podatki = statistika.zdruzi_statistiko(mapa)
+    seznam_statistike.extend(podatki)
 
-zapisi_json(zdruzeno, 'podatki\\statistika\\celotna-statistika.json')
+kam_zapisi = 'podatki\\statistika-ekip.csv'
+zapisi_csv(seznam_statistike, kam_zapisi)
+
+# naredi csv datoteke za vse igralce in trenerje
+mapa = 'spletne-strani\\ekipe'
+osebe = ekipa.igralci_in_trenerji(mapa)
+igralci = osebe['igralci']
+trenerji = osebe['trenerji']
+zapis_igralcev = 'podatki\\{}.csv'.format('igralci')
+zapis_trenerjev = 'podatki\\{}.csv'.format('trenerji')
+zapisi_csv(igralci, zapis_igralcev)
+zapisi_csv(trenerji, zapis_trenerjev)
+
+# naredi csv datoteke za vse tekme od zacetka evrolige
+tekme = ekipa.vse_tekme(mapa)
+zapisi_tekme = 'podatki\\tekme.csv'
+zapisi_csv(tekme, zapisi_tekme)
